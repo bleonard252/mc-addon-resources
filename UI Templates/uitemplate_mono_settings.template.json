@@ -1,0 +1,254 @@
+/* MC UI.JSON SCREEN TEMPLATE: SELF-CONTAINED SETTINGS SCREEN
+   by bleonard252 on GitHub & Reddit   V. 1.0.0 for MC 1.2.6
+   Used by [insert id here]
+   Project: [insert use name here]
+   ==========================================================
+ # DOCUMENTATION/HELP/NOTES
+   This is a fully-featured, self-contained Settings screen. To replace the namespace, 
+   I suggest Ctrl+H/Find-and-Replacing the existing namespace name.
+   (Do the same for Interface Content Name. It's the "caption" for the Settings window.)
+   I also suggest putting this into another file than the screen you're trying to modify.
+   That way, you can modify that one by using the namespace and just the control with $screen_content
+   in it. You would replace the value of the $screen_content property with "uitemplate_mono_settings.settings_content".
+   Each section is labelled for your convenience. Once you are done with it, feel free
+   to remove the Documentation section. I would like the formatting of the License section
+   to remain the same. 
+   I also advise creating a new image map for your buttons.
+   As for the header, replace [insert id here] with something to identify you. Replace
+   [insert use name here] with your pack/interface name (and version, if you want.) Don't over-complicate it.
+   For now, I know of no way to make your own settings, so don't ask. Hope this comes in handy!
+ # LICENSE
+   You are allowed to replicate this file as many times as you want, as long as you keep the header
+   and License section. Don't copy from here without giving bleonard252 credit (I wrote this).
+   You also need to follow the instructions! If you mess it up, I'm not liable.
+*/
+{
+	"namespace": "uitemplate_mono_settings", // uitemplate; self-contained; Settings screen
+	
+	// ---------- ---------- ----------
+	// Common
+	// ---------- ---------- ----------
+	// Update this section if it stops working with an update.
+	// ---------- ---------- ----------
+	
+	"toggle_button@settings_common.section_toggle_base": {
+		/* HOW TO USE:
+		1. Create a new control ending in @uitemplate_mono_settings.toggle_button
+		2. Set the variables inside. See the example use case. */
+		"$toggle_view_binding_name": "$ui_button_toggle_name",
+		"$button_text": "$ui_button_name",
+		"$glyph_texture": "$ui_image_outline",
+		"$glyph_color_texture": "$ui_image_texture",
+		"$glyph_size": "$ui_image_size",
+		"$ui_image_position|default": [0, 0],
+		"$glyph_uv": "$ui_image_position",
+		"$toggle_property_bag": {
+		  "#panel_title": "$ui_button_name"
+		}
+	},
+	/*{"example_button@uitemplate_mono_settings.toggle_button": {			//Example toggle button.
+		// + Added in Template ver 1.0.0 MC ver 1.2.6
+		"$ui_button_toggle_name": "example_button_toggle", //This is an ID for your button's toggle. Use lowercase letters, digits, and underscores only.
+		"$ui_button_name": "Example Item", //This is the user-displayed name.
+		"$ui_image_size": [16, 16], //This is the size in pixels.
+		"$ui_image_position": [1, 6], //This is where in the image it is located, in pixels. If you omit it, it's [0, 0].
+		"$ui_image_outline": "textures/example-addon/example-item-outline", // Path to where in the pack the outline texture is. It needs the same dimensions as the color image.
+		"$ui_image_texture": "textures/example-addon/example-item-texture", // Path to the color textures in the pack.
+		//Remove comments before using. Please.
+	}}, //This is placed within its container, as in the example version of this file.*/
+	
+	/*{"example_panel": { 				//Example content panel.
+		"type": "stack_panel","size": [ "100%", "100%c" ],"anchor_from": "top_left","anchor_to": "top_left",
+		"bindings": [
+		  {
+			"binding_type": "view",
+			"source_control_name": "example_button_toggle", //Replace with your button toggle name.
+			"source_property_name": "#toggle_state",
+			"target_property_name": "#visible"
+		  }
+		],"controls": [
+			//Insert controls here. Each control should be enclosed like this:
+			// {"control":{
+			// 		"property": "value"
+			// }},
+			//Minecraft throws syntax errors if you leave extra commas.
+		]
+	}},*/
+	
+	// ---------- ---------- ----------
+	// User Content
+	// ---------- ---------- ----------
+	
+	"section_content_panels": {
+    "type": "panel","anchor_from": "top_left","anchor_to": "top_left","size": [ "100% - 4px", "100%c + 4px" ],"offset": [ 2, 0 ],"controls": [{
+    "section_content": {"type": "stack_panel","controls": [
+		// Insert content panels here
+    ]}}]
+	}, // I minified it for you. You're welcome!
+	
+	"selector_stack_panel": {
+    "type": "stack_panel","anchor_from": "top_left","anchor_to": "top_left","orientation": "vertical","$default_selector_toggle_index": 1,"controls": [{ "selector_pane_content": {"type": "stack_panel","controls": [
+        //Insert selector buttons here
+    ]}}]
+	}, //I minified this for you too.
+	
+	// ---------- ---------- ----------
+	// "System" stuff
+	// ---------- ---------- ----------
+	// This section might need updating later.
+	// ---------- ---------- ----------
+	
+	"settings_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "stack_panel": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%" ],
+          "controls": [
+            {
+              "content_panel": {
+                "type": "panel",
+                "size": [ "100%", "fill" ],
+                "controls": [
+                  {
+                    "common_panel@common.common_panel": {
+                      "size": [ "100% - 4px", "100% - 4px" ],
+                      "$dialog_background": "dialog_background_hollow_3",
+                      "$show_divider": true,
+                      "$divider_offset": [ "40%", "22px" ]
+                    }
+                  },
+                  {
+                    "container": {
+                      "type": "panel",
+                      "size": [ "100% - 4px", "100% - 4px" ],
+                      "controls": [
+                        { "dialog_content@uitemplate_mono_settings.dialog_content": {} }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "popup_dialog_factory": {
+          "type": "factory",
+          "control_ids": {
+            "purchase_failed": "@realms_create.popup_dialog__purchase_failed",
+            "purchase_in_progress": "@realms_create.popup_dialog__purchase_in_progress",
+            "share_by_link": "@realms_whitelist.popup_dialog__share_by_link"
+          }
+        }
+      }
+    ]
+	},
+	
+  "dialog_title_label": {
+    "type": "label",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 2,
+    "color": "$title_text_color",
+    "text": "Interface Content Name"
+  },
+  "selector_group_label": {
+    "type": "label",
+    "size": [ "100%", "default" ],
+    "color": "$main_header_text_color",
+    "offset": [ 15, 0 ]
+  },
+  "dialog_content": {
+    "type": "panel",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      { "dialog_title_label@uitemplate_mono_settings.dialog_title_label": { "offset": [ 8, 9 ] } },
+      { "selector_area@uitemplate_mono_settings.selector_area": {} },
+      { "section_title_label@uitemplate_mono_settings.section_title_label": { "offset": [ "20%", 9 ] } },
+      { "content_area@uitemplate_mono_settings.content_area": {} }
+    ]
+  },
+  
+  "scrollable_selector_area_content": {
+    "type": "panel",
+    "offset": [ "2px", "2px" ],
+    "size": [ "100% - 4px", "100%c + 4px" ],
+    "controls": [
+      { "stack_panel@uitemplate_mono_settings.selector_stack_panel": {} }
+    ]
+  },
+  
+  "selector_area": {
+    "type": "panel",
+    "offset": [ "8px", "23px" ],
+    "size": [ "40% - 8px", "100% - 31px" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 2,
+    "focus_container": true,
+    "use_last_focus": true,
+    "$focus_nagivation_mode_override_down|default": "contained",
+    "$focus_nagivation_mode_override_up|default": "contained",
+    "$focus_nagivation_mode_override_left|default": "",
+    "$focus_nagivation_mode_override_right|default": "",
+    "focus_nagivation_mode_down": "$focus_nagivation_mode_override_down",
+    "focus_nagivation_mode_up": "$focus_nagivation_mode_override_up",
+    "focus_nagivation_mode_left": "$focus_nagivation_mode_override_left",
+    "focus_nagivation_mode_right": "$focus_nagivation_mode_override_right",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$scrolling_content": "uitemplate_mono_settings.scrollable_selector_area_content",
+          "$show_background": false,
+          "$scroll_size": [ "5px", "100% - 4px" ],
+          "$scroll_bar_left_padding_size": [ 0, 0 ]
+        }
+      }
+    ]
+  },
+  "content_area": {
+    "type": "panel",
+    "offset": [ "-8px", "23px" ],
+    "size": [ "60% - 13px", "100% - 31px" ],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "layer": 1,
+
+    "focus_container": true,
+    "use_last_focus": false,
+    "$focus_nagivation_mode_override_down|default": "contained",
+    "$focus_nagivation_mode_override_up|default": "contained",
+    "$focus_nagivation_mode_override_left|default": "",
+    "$focus_nagivation_mode_override_right|default": "",
+    "focus_nagivation_mode_down": "$focus_nagivation_mode_override_down",
+    "focus_nagivation_mode_up": "$focus_nagivation_mode_override_up",
+    "focus_nagivation_mode_left": "$focus_nagivation_mode_override_left",
+    "focus_nagivation_mode_right": "$focus_nagivation_mode_override_right",
+
+    "controls": [
+      {
+        "control": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%" ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "controls": [
+            {
+              "scrolling_panel@common.scrolling_panel": {
+                "size": [ "100%", "fill" ],
+                "$scrolling_content": "uitemplate_mono_settings.section_content_panels",
+                "$show_background": false,
+                "$scroll_size": [ "5px", "100% - 4px" ],
+                "$scroll_bar_left_padding_size": [ 0, 0 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
